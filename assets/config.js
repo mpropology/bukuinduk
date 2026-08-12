@@ -9,4 +9,4 @@
  * -> setelah Deploy, salin "Web app URL" yang muncul -> tempel di bawah
  * ============================================================
  */
-const APPS_SCRIPT_URL = 'GANTI_DENGAN_URL_WEB_APP_APPS_SCRIPT';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6S2h0GnwaTcAZ6Huykq6Qygr2DNXDNpNsm0dauVvZ84Ep-i7e3WLHtwRnEdzw_hg/exec';
