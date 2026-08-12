@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Input Siswa — Buku Induk Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app">
+  <nav class="rail">
+    <div class="rail-brand">Induk<span>.</span></div>
+    <div class="rail-sub">SD MUHAMMADIYAH · TU DIGITAL</div>
+    <div class="rail-nav">
+      <a href="dashboard.html"><span class="rail-num">01</span> Ringkasan Data</a>
+      <a href="input.html" class="active"><span class="rail-num">02</span> Input &amp; Scan</a>
+      <a href="cari.html"><span class="rail-num">03</span> Cari Siswa</a>
+    </div>
+    <div class="rail-foot">
+      Masuk sebagai<br><strong id="namaUser" style="color:#E8D9B8">...</strong>
+      <br><br><a href="#" onclick="logout()" style="color:#C7CFE2;">Keluar</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="topline">
+      <div>
+        <div class="page-title" id="judulHalaman">Tambah Siswa</div>
+        <div class="page-desc">Isi manual dulu — pemindaian OCR otomatis menyusul di tahap berikutnya</div>
+      </div>
+    </div>
+
+    <div id="pesanStatus" style="display:none;" class="alert-box"></div>
+
+    <form id="formSiswa" class="panel ocr-form" style="max-width:520px;">
+      <div class="form-row">
+        <label>NIS</label>
+        <input name="NIS" id="inputNIS" required>
+      </div>
+      <div class="form-row">
+        <label>NISN <span style="text-transform:none; font-weight:400;">(10 digit)</span></label>
+        <input name="NISN" maxlength="10">
+      </div>
+      <div class="form-row">
+        <label>Nama Lengkap</label>
+        <input name="NamaLengkap" required>
+      </div>
+      <div class="form-row">
+        <label>Jenis Kelamin</label>
+        <select name="JenisKelamin" style="width:100%; padding:9px 11px; border:1px solid #DDD5C2; border-radius:6px;">
+          <option value="">Pilih...</option>
+          <option value="L">Laki-laki</option>
+          <option value="P">Perempuan</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Tempat Lahir</label>
+        <input name="TempatLahir">
+      </div>
+      <div class="form-row">
+        <label>Tanggal Lahir</label>
+        <input name="TglLahir" type="date">
+      </div>
+      <div class="form-row">
+        <label>Nama Ortu/Wali</label>
+        <input name="NamaOrtu">
+      </div>
+      <div class="form-row">
+        <label>Tanggal Masuk Kelas</label>
+        <input name="TglMasukKelas" type="date">
+      </div>
+      <div class="form-row">
+        <label>Catatan</label>
+        <input name="Catatan">
+      </div>
+
+      <button type="submit" class="btn-primary" id="tombolSimpan">Simpan</button>
+    </form>
+  </main>
+</div>
+
+<script src="assets/config.js"></script>
+<script src="assets/api.js"></script>
+<script>
+  const paramUrl = new URLSearchParams(window.location.search);
+  const nisEdit = paramUrl.get('nis');
+
+  (async function () {
+    const sesi = await wajibLogin();
+    document.getElementById('namaUser').textContent = localStorage.getItem('induk_nama') || sesi.username;
+
+    // Kalau dibuka lewat klik baris di halaman Cari (?nis=2357),
+    // ambil data lama dan isikan ke form supaya jadi mode edit.
+    if (nisEdit) {
+      document.getElementById('judulHalaman').textContent = 'Edit Data Siswa — NIS ' + nisEdit;
+      const hasil = await ambilSiswa(nisEdit);
+      if (hasil.success) {
+        const form = document.getElementById('formSiswa');
+        Object.keys(hasil.data).forEach(function (kolom) {
+          if (form[kolom]) form[kolom].value = hasil.data[kolom];
+        });
+        document.getElementById('inputNIS').disabled = true; // NIS tidak boleh diubah saat edit
+      }
+    }
+  })();
+
+  document.getElementById('formSiswa').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const tombol = document.getElementById('tombolSimpan');
+    const pesan = document.getElementById('pesanStatus');
+    tombol.disabled = true;
+    tombol.textContent = 'Menyimpan...';
+
+    const form = e.target;
+    const dataSiswa = {
+      NIS: nisEdit || form.NIS.value,
+      NISN: form.NISN.value,
+      NamaLengkap: form.NamaLengkap.value,
+      JenisKelamin: form.JenisKelamin.value,
+      TempatLahir: form.TempatLahir.value,
+      TglLahir: form.TglLahir.value,
+      NamaOrtu: form.NamaOrtu.value,
+      TglMasukKelas: form.TglMasukKelas.value,
+      Catatan: form.Catatan.value
+    };
+
+    const hasil = await simpanSiswa(dataSiswa);
+
+    pesan.style.display = 'flex';
+    if (hasil.success) {
+      pesan.innerHTML = `✅ Data tersimpan (${hasil.mode === 'baru' ? 'siswa baru' : 'diperbarui'}), huruf klapper: ${hasil.klapper}`;
+      pesan.style.background = '#E4EFE3';
+      pesan.style.color = '#3B6B3E';
+      pesan.style.border = '1px solid #B9D9B8';
+      if (hasil.mode === 'baru') form.reset();
+    } else {
+      pesan.innerHTML = '⚠️ ' + hasil.error;
+    }
+
+    tombol.disabled = false;
+    tombol.textContent = 'Simpan';
+  });
+</script>
+
+</body>
+</html>

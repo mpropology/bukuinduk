@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cari Siswa — Buku Induk Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app">
+  <nav class="rail">
+    <div class="rail-brand">Induk<span>.</span></div>
+    <div class="rail-sub">SD MUHAMMADIYAH · TU DIGITAL</div>
+    <div class="rail-nav">
+      <a href="dashboard.html"><span class="rail-num">01</span> Ringkasan Data</a>
+      <a href="input.html"><span class="rail-num">02</span> Input &amp; Scan</a>
+      <a href="cari.html" class="active"><span class="rail-num">03</span> Cari Siswa</a>
+    </div>
+    <div class="rail-foot">
+      Masuk sebagai<br><strong id="namaUser" style="color:#E8D9B8">...</strong>
+      <br><br><a href="#" onclick="logout()" style="color:#C7CFE2;">Keluar</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="topline">
+      <div>
+        <div class="page-title">Cari Data Siswa</div>
+        <div class="page-desc">Susun berdasarkan indeks klapper</div>
+      </div>
+    </div>
+
+    <div class="search-shell">
+      <div class="klapper-rail" id="klapperRail">
+        <!-- diisi otomatis: huruf aktif vs abu-abu -->
+      </div>
+
+      <div>
+        <div class="search-bar">
+          <input type="text" id="keyword" placeholder="Cari nama atau NIS…">
+          <select id="statusFilter">
+            <option value="">Semua Status</option>
+            <option value="lengkap">Data Lengkap</option>
+            <option value="belum_lengkap">Belum Lengkap</option>
+          </select>
+        </div>
+
+        <div class="panel" style="padding:0; overflow:hidden;">
+          <table>
+            <thead>
+              <tr><th>NIS</th><th>Nama</th><th>Klapper</th><th>JK</th><th>Kelengkapan</th></tr>
+            </thead>
+            <tbody id="hasilTabel">
+              <tr><td colspan="5" style="text-align:center; color:#5B6472; padding:24px;">Memuat...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/config.js"></script>
+<script src="assets/api.js"></script>
+<script>
+  let hurufAktif = '';
+
+  (async function () {
+    const sesi = await wajibLogin();
+    document.getElementById('namaUser').textContent = localStorage.getItem('induk_nama') || sesi.username;
+
+    await renderKlapperRail();
+    await jalankanPencarian();
+  })();
+
+  async function renderKlapperRail() {
+    const hasil = await ambilRingkasanKlapper();
+    const rail = document.getElementById('klapperRail');
+    const abjad = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    rail.innerHTML = abjad.map(function (huruf) {
+      const aktif = hasil.counts && hasil.counts[huruf] > 0;
+      const kelas = aktif ? 'on' : '';
+      return `<button class="${kelas}" onclick="pilihHuruf('${huruf}')" ${!aktif ? 'disabled' : ''}>${huruf}</button>`;
+    }).join('');
+  }
+
+  function pilihHuruf(huruf) {
+    hurufAktif = (hurufAktif === huruf) ? '' : huruf; // klik dua kali = batal filter
+    document.querySelectorAll('.klapper-rail button').forEach(function (b) {
+      b.classList.toggle('active', b.textContent === hurufAktif);
+    });
+    jalankanPencarian();
+  }
+
+  async function jalankanPencarian() {
+    const params = {
+      keyword: document.getElementById('keyword').value,
+      klapper: hurufAktif,
+      status: document.getElementById('statusFilter').value
+    };
+
+    const hasil = await cariSiswa(params);
+    const tbody = document.getElementById('hasilTabel');
+
+    if (!hasil.success || hasil.data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#5B6472; padding:24px;">Tidak ada data yang cocok</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = hasil.data.map(function (s) {
+      const badge = s._lengkap
+        ? '<span class="status-pill status-ok">Lengkap</span>'
+        : `<span class="status-pill status-warn">${s._kolomKosong} kolom kosong</span>`;
+      return `
+        <tr onclick="window.location.href='input.html?nis=${s.NIS}'">
+          <td class="nis-cell">${s.NIS}</td>
+          <td><span class="klapper-badge">${s.HurufKlapper || '?'}</span>${s.NamaLengkap}</td>
+          <td>${s.HurufKlapper || '-'}</td>
+          <td>${s.JenisKelamin || '-'}</td>
+          <td>${badge}</td>
+        </tr>`;
+    }).join('');
+  }
+
+  // Cari otomatis 400ms setelah user berhenti ketik (biar tidak
+  // manggil backend di setiap huruf yang diketik)
+  let timer;
+  document.getElementById('keyword').addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(jalankanPencarian, 400);
+  });
+  document.getElementById('statusFilter').addEventListener('change', jalankanPencarian);
+</script>
+
+</body>
+</html>
