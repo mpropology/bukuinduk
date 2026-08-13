@@ -28,11 +28,27 @@
     <div class="topline">
       <div>
         <div class="page-title" id="judulHalaman">Tambah Siswa</div>
-        <div class="page-desc">Isi manual dulu — pemindaian OCR otomatis menyusul di tahap berikutnya</div>
+        <div class="page-desc">Pindai foto dokumen, atau isi manual di bawah</div>
       </div>
     </div>
 
     <div id="pesanStatus" style="display:none;" class="alert-box"></div>
+
+    <div class="ocr-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; max-width:900px;">
+      <div class="drop-zone" id="dropZone" style="border:2px dashed #DDD5C2; border-radius:10px; background:#FFFDF8; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px 20px; text-align:center; gap:10px; min-height:180px;">
+        <div id="previewArea"></div>
+        <p style="font-size:13px; color:#5B6472;" id="dropText">Pilih foto halaman buku induk untuk dipindai otomatis</p>
+        <input type="file" id="inputFoto" accept="image/*" capture="environment" style="display:none;">
+        <button type="button" class="btn-primary" onclick="document.getElementById('inputFoto').click()" style="width:auto; padding:9px 20px;">Pilih Foto</button>
+        <button type="button" class="btn-primary" id="tombolPindai" style="width:auto; padding:9px 20px; display:none; background:#B8862E;" onclick="jalankanOCR()">Pindai Dokumen</button>
+      </div>
+      <div class="panel" style="margin-bottom:0; font-size:12.5px; color:#5B6472;">
+        <div class="panel-title" style="font-family:'Fraunces',serif; font-size:15px; margin-bottom:8px; color:#1E2A45;">Catatan Pemindaian</div>
+        <p style="margin-bottom:8px;">Hasil pindai otomatis mengisi form di bawah, tapi <strong>belum tentu 100% tepat</strong> — terutama untuk tulisan tangan.</p>
+        <p style="margin-bottom:8px;">Field yang tidak berhasil terbaca akan ditandai merah — cek dan lengkapi manual sebelum klik Simpan.</p>
+        <p>Proses makan waktu beberapa detik, tunggu sampai form terisi otomatis.</p>
+      </div>
+    </div>
 
     <form id="formSiswa" class="panel ocr-form" style="max-width:520px;">
       <div class="form-row">
@@ -105,6 +121,75 @@
       }
     }
   })();
+
+  let fileTerpilih = null;
+
+  document.getElementById('inputFoto').addEventListener('change', function (e) {
+    fileTerpilih = e.target.files[0];
+    if (!fileTerpilih) return;
+
+    const preview = document.getElementById('previewArea');
+    preview.innerHTML = `<img src="${URL.createObjectURL(fileTerpilih)}" style="max-height:100px; border-radius:6px;">`;
+    document.getElementById('dropText').textContent = fileTerpilih.name;
+    document.getElementById('tombolPindai').style.display = 'inline-block';
+  });
+
+  async function jalankanOCR() {
+    if (!fileTerpilih) return;
+
+    const tombol = document.getElementById('tombolPindai');
+    tombol.disabled = true;
+    tombol.textContent = 'Memindai... (bisa 10-20 detik)';
+
+    const hasil = await pindaiGambar(fileTerpilih);
+
+    tombol.disabled = false;
+    tombol.textContent = 'Pindai Dokumen';
+
+    if (!hasil.success) {
+      alert('Gagal memindai: ' + hasil.error);
+      return;
+    }
+
+    const form = document.getElementById('formSiswa');
+    const dataHasil = hasil.hasil;
+
+    // Isi tiap field yang berhasil ditebak, tandai merah kalau kosong
+    const pemetaan = {
+      NISN: dataHasil.NISN,
+      NamaLengkap: dataHasil.NamaLengkap,
+      TempatLahir: dataHasil.TempatLahir,
+      NamaOrtu: dataHasil.NamaOrtu,
+      JenisKelamin: dataHasil.JenisKelamin
+    };
+
+    Object.keys(pemetaan).forEach(function (nama) {
+      const el = form[nama];
+      if (!el) return;
+      const nilai = pemetaan[nama];
+      el.value = nilai || '';
+      if (!nilai) {
+        el.style.borderColor = '#A63D40';
+        el.style.background = '#FFF7F5';
+        el.placeholder = 'Tidak terbaca — isi manual';
+      } else {
+        el.style.borderColor = '#B9D9B8';
+        el.style.background = '#F5FAF4';
+      }
+    });
+
+    // Kalau NIS ikut kepindai (jarang, biasanya tidak ada di dokumen fisik lama)
+    if (dataHasil.NIS) {
+      document.getElementById('inputNIS').value = dataHasil.NIS;
+    }
+
+    const pesan = document.getElementById('pesanStatus');
+    pesan.style.display = 'flex';
+    pesan.innerHTML = 'ℹ️ Form sudah terisi dari hasil pindai — field bergaris merah tidak berhasil terbaca, cek dan lengkapi manual sebelum simpan.';
+    pesan.style.background = '#FBF1EC';
+    pesan.style.color = '#7A2E2E';
+    pesan.style.border = '1px solid #EBC9BE';
+  }
 
   document.getElementById('formSiswa').addEventListener('submit', async function (e) {
     e.preventDefault();
