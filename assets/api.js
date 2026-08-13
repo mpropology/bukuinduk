@@ -95,3 +95,36 @@ async function simpanSiswa(dataSiswa) {
   const token = localStorage.getItem('induk_token');
   return panggilBackend({ action: 'saveStudent', token, data: dataSiswa });
 }
+
+/* ============================================================
+ * OCR
+ * ============================================================ */
+
+/**
+ * Terima objek File dari <input type="file">, ubah jadi base64,
+ * kirim ke backend untuk dipindai.
+ */
+async function pindaiGambar(fileGambar) {
+  const base64 = await fileKeBase64(fileGambar);
+  const token = localStorage.getItem('induk_token');
+  return panggilBackend({
+    action: 'ocrGambar',
+    token,
+    base64Image: base64,
+    mimeType: fileGambar.type
+  });
+}
+
+function fileKeBase64(file) {
+  return new Promise(function (resolve, reject) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      // reader.result formatnya "data:image/jpeg;base64,XXXXX"
+      // kita cuma butuh bagian setelah koma
+      const base64 = reader.result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
