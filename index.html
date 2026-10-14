@@ -1,1 +1,378 @@
-<script>window.location.href = 'login.html';</script>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Buku Klapper Siswa · SD Muhammadiyah</title>
+<meta name="theme-color" content="#0b4a34">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📗</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --hijau:#0b4a34; --hijau2:#13694a; --hijau-muda:#e3f1ea;
+  --emas:#c9a227; --emas-muda:#f7edc8;
+  --bg:#f5f7f2; --kartu:#ffffff; --teks:#17211c; --teks2:#5b6a62; --garis:#dfe6df;
+  --merah:#b4402f; --biru:#2c6f9e; --abu:#8a948e;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0d1612;--kartu:#15221b;--teks:#e8efe9;--teks2:#9fb0a5;--garis:#243329;--hijau-muda:#18372a;--emas-muda:#3a3314}
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--teks);line-height:1.55;
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--emas);outline-offset:2px}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--hijau) 0%,var(--hijau2) 100%);color:#fff;
+  padding:calc(28px + env(safe-area-inset-top,0px)) 20px 70px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -40px -1px -40px;height:46px;
+  background:var(--bg);clip-path:polygon(0 100%,100% 100%,100% 0,50% 70%,0 0)}
+.hero .pola{position:absolute;right:-60px;top:-60px;width:320px;height:320px;opacity:.12;
+  background:conic-gradient(from 0deg,#fff 0 12.5%,transparent 0 25%,#fff 0 37.5%,transparent 0 50%,#fff 0 62.5%,transparent 0 75%,#fff 0 87.5%,transparent 0);
+  border-radius:50%;mask:radial-gradient(circle,transparent 30%,#000 31%,#000 60%,transparent 61%)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+.hero .wrap{position:relative}
+.sekolah{font-size:.85rem;letter-spacing:.02em;color:var(--emas-muda);font-weight:600}
+h1{font-family:'Fraunces',serif;font-weight:800;font-size:clamp(1.9rem,5.5vw,3.2rem);line-height:1.08;margin:6px 0 8px}
+.hero p.sub{max-width:56ch;opacity:.9}
+.stempel{display:inline-block;margin-top:14px;background:rgba(255,255,255,.14);border:1px solid rgba(201,162,39,.7);
+  padding:5px 12px;border-radius:99px;font-size:.8rem}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;margin:-34px auto 20px;position:relative;z-index:2}
+.tab{flex:1;max-width:220px;border:0;cursor:pointer;padding:12px 14px;border-radius:12px;background:var(--kartu);
+  font-weight:700;box-shadow:0 2px 0 var(--garis);color:var(--teks2)}
+.tab[aria-selected=true]{background:var(--emas);color:#2a2100;box-shadow:0 3px 0 #9c7d12}
+
+/* Stat */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:var(--kartu);border:1px solid var(--garis);border-radius:var(--r);padding:14px 16px;cursor:pointer;
+  text-align:left;border-left:6px solid var(--c,var(--hijau));transition:transform .15s}
+.stat:hover{transform:translateY(-2px)}
+.stat b{display:block;font-family:'Fraunces',serif;font-size:2rem;line-height:1.1}
+.stat span{color:var(--teks2);font-size:.85rem}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:18px}
+.box{background:var(--kartu);border:1px solid var(--garis);border-radius:var(--r);padding:16px}
+.box h2{font-family:'Fraunces',serif;font-size:1.15rem;margin-bottom:10px}
+.box.lebar{grid-column:1/-1}
+.chartbox{position:relative;height:260px}
+.kualitas .bar{margin:10px 0}
+.kualitas .bar div.label{display:flex;justify-content:space-between;font-size:.85rem}
+.kualitas .track{height:9px;background:var(--hijau-muda);border-radius:9px;overflow:hidden;margin-top:4px}
+.kualitas .fill{height:100%;background:linear-gradient(90deg,var(--hijau2),var(--emas));border-radius:9px}
+.catatan{font-size:.82rem;color:var(--teks2);margin-top:8px}
+
+/* Filter */
+.filter{display:grid;grid-template-columns:2fr repeat(3,1fr) auto;gap:8px;margin-bottom:10px}
+.filter input,.filter select{padding:11px 12px;border:1px solid var(--garis);border-radius:10px;background:var(--kartu);width:100%}
+.btn{border:0;background:var(--hijau);color:#fff;padding:11px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+.btn.alt{background:var(--kartu);color:var(--hijau);border:1px solid var(--hijau)}
+@media(prefers-color-scheme:dark){.btn.alt{color:var(--emas);border-color:var(--emas)}}
+@media(max-width:780px){.filter{grid-template-columns:1fr 1fr}.filter input[type=search]{grid-column:1/-1}}
+
+.huruf{display:flex;gap:5px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
+.huruf button{min-width:34px;height:34px;border-radius:9px;border:1px solid var(--garis);background:var(--kartu);cursor:pointer;font-weight:700;flex:none}
+.huruf button[aria-pressed=true]{background:var(--hijau);color:#fff;border-color:var(--hijau)}
+.huruf button:disabled{opacity:.35;cursor:default}
+.info{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 12px;color:var(--teks2);font-size:.9rem}
+
+/* Kartu siswa */
+.daftar{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.siswa{background:var(--kartu);border:1px solid var(--garis);border-radius:var(--r);padding:14px;display:flex;gap:12px;
+  text-align:left;cursor:pointer;width:100%}
+.siswa:hover{border-color:var(--hijau2)}
+.avatar{flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+  font-family:'Fraunces',serif;font-weight:800;font-size:1.3rem;color:#fff;background:var(--hijau2)}
+.avatar.P{background:#a4486b}
+.siswa h3{font-size:.98rem;line-height:1.25;margin-bottom:2px;overflow-wrap:anywhere}
+.siswa small{color:var(--teks2);display:block}
+.lencana{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:99px;margin-top:5px;
+  background:var(--hijau-muda);color:var(--hijau)}
+@media(prefers-color-scheme:dark){.lencana{color:#9be0bd}}
+.lencana.Lulus{background:var(--emas-muda);color:#7a5f00}
+.lencana.Keluar{background:#f6dcd7;color:var(--merah)}
+.lencana.Mutasi{background:#d9e8f3;color:var(--biru)}
+.lencana.Belum{background:#e8ebe9;color:#59635d}
+@media(prefers-color-scheme:dark){.lencana.Lulus{color:#f0d56a}.lencana.Keluar{background:#4a2520;color:#f2a99c}.lencana.Mutasi{background:#1c3345;color:#9cc9e6}.lencana.Belum{background:#27312b;color:#aab5ae}}
+.kosong{text-align:center;padding:50px 10px;color:var(--teks2)}
+
+/* Modal */
+dialog{border:0;border-radius:18px;padding:0;max-width:480px;width:calc(100% - 28px);background:var(--kartu);color:var(--teks)}
+dialog::backdrop{background:rgba(5,25,17,.6)}
+.m-head{background:linear-gradient(135deg,var(--hijau),var(--hijau2));color:#fff;padding:20px;position:relative}
+.m-head h3{font-family:'Fraunces',serif;font-size:1.4rem;line-height:1.2;padding-right:34px}
+.m-head .x{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;cursor:pointer;font-size:1.1rem}
+.m-body{padding:8px 20px 20px}
+.m-body dl{display:grid;grid-template-columns:130px 1fr;gap:0}
+.m-body dt,.m-body dd{padding:9px 0;border-bottom:1px solid var(--garis)}
+.m-body dt{color:var(--teks2);font-size:.88rem}
+.m-body dd{font-weight:600;overflow-wrap:anywhere}
+
+/* Status / lock */
+.layar{min-height:60vh;display:grid;place-items:center;text-align:center;padding:30px}
+.layar .box{max-width:460px}
+.layar input{padding:11px;border:1px solid var(--garis);border-radius:10px;width:100%;margin:10px 0;background:var(--bg)}
+.spin{width:38px;height:38px;border:4px solid var(--hijau-muda);border-top-color:var(--emas);border-radius:50%;animation:putar 1s linear infinite;margin:0 auto 12px}
+@keyframes putar{to{transform:rotate(360deg)}}
+footer{text-align:center;color:var(--teks2);font-size:.82rem;padding:26px 16px 34px}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="pola" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sekolah" id="namaSekolah">SD Muhammadiyah · Pekalongan</div>
+    <h1>Buku Klapper Siswa</h1>
+    <p class="sub">Induk NIS dari angkatan 1955 sampai siswa aktif hari ini, tersaji rapi dan bisa dicari dalam hitungan detik.</p>
+    <span class="stempel" id="stempel">Memuat data…</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t-dash" aria-selected="true">Ringkasan</button>
+    <button class="tab" role="tab" id="t-data" aria-selected="false">Data siswa</button>
+  </div>
+
+  <section id="layar" class="layar"><div><div class="spin"></div><p>Mengambil data dari Google Sheet…</p></div></section>
+
+  <!-- RINGKASAN -->
+  <section id="p-dash" hidden>
+    <div class="stats" id="stats"></div>
+    <div class="grid2">
+      <div class="box"><h2>Status siswa</h2><div class="chartbox"><canvas id="cStatus"></canvas></div></div>
+      <div class="box"><h2>Laki-laki dan perempuan</h2><div class="chartbox"><canvas id="cJK"></canvas></div></div>
+      <div class="box lebar"><h2>Siswa masuk per tahun</h2><div class="chartbox"><canvas id="cTahun"></canvas></div></div>
+      <div class="box kualitas"><h2>Kelengkapan data</h2><div id="kualitas"></div>
+        <p class="catatan">Bagian yang masih rendah perlu dilengkapi dari buku induk fisik.</p></div>
+      <div class="box"><h2>Huruf klapper terbanyak</h2><div class="chartbox"><canvas id="cHuruf"></canvas></div></div>
+    </div>
+  </section>
+
+  <!-- DATA -->
+  <section id="p-data" hidden>
+    <div class="filter">
+      <input type="search" id="q" placeholder="Cari nama, NIS, nama orang tua…" aria-label="Cari siswa">
+      <select id="fStatus" aria-label="Status"><option value="">Semua status</option></select>
+      <select id="fJK" aria-label="Jenis kelamin"><option value="">L dan P</option><option value="L">Laki-laki</option><option value="P">Perempuan</option></select>
+      <select id="fTahun" aria-label="Tahun masuk"><option value="">Semua tahun masuk</option></select>
+      <button class="btn alt" id="reset">Reset</button>
+    </div>
+    <div class="huruf" id="huruf" aria-label="Filter huruf klapper"></div>
+    <div class="info"><span id="jumlah"></span>
+      <span><select id="urut" aria-label="Urutkan" style="padding:8px;border:1px solid var(--garis);border-radius:9px;background:var(--kartu)">
+        <option value="nis">Urut NIS</option><option value="nama">Urut nama A-Z</option><option value="tahun">Tahun masuk terbaru</option></select>
+        <button class="btn" id="unduh">Unduh CSV</button></span></div>
+    <div class="daftar" id="daftar"></div>
+    <div style="text-align:center;margin-top:16px"><button class="btn alt" id="lagi" hidden>Tampilkan lebih banyak</button></div>
+  </section>
+</main>
+
+<footer>Dikelola Tata Usaha · data diambil langsung dari Google Sheet INDUK NIS KLEPER</footer>
+
+<dialog id="dlg">
+  <div class="m-head"><button class="x" id="tutup" aria-label="Tutup">✕</button><h3 id="mNama"></h3><div id="mSub" style="opacity:.9;font-size:.9rem"></div></div>
+  <div class="m-body"><dl id="mIsi"></dl></div>
+</dialog>
+
+<script>
+/* ============ PENGATURAN ============ */
+const CONFIG = {
+  // Tempel URL Web App Apps Script (yang berakhiran /exec) di sini:
+  API_URL: "https://script.google.com/macros/s/AKfycbx6S2h0GnwaTcAZ6Huykq6Qygr2DNXDNpNsm0dauVvZ84Ep-i7e3WLHtwRnEdzw_hg/exec",
+  NAMA_SEKOLAH: "SD Muhammadiyah · Pekalongan"
+};
+/* ====================================== */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let DATA = [], VIEW = [], page = 1, PAGE = 36, hurufAktif = "", charts = {};
+const STATUS_URUT = ["Aktif","Lulus","Mutasi","Keluar","Belum diisi"];
+const WARNA = {"Aktif":"#13694a","Lulus":"#c9a227","Mutasi":"#2c6f9e","Keluar":"#b4402f","Belum diisi":"#8a948e"};
+
+$("#namaSekolah").textContent = CONFIG.NAMA_SEKOLAH;
+
+/* ---------- Ambil data ---------- */
+async function muat(key){
+  if(!CONFIG.API_URL) return tampilSetup();
+  try{
+    const url = CONFIG.API_URL + (key ? "?key=" + encodeURIComponent(key) : "");
+    const res = await fetch(url);
+    const j = await res.json();
+    if(!j.ok){
+      if(j.error === "unauthorized") return tampilKunci(!!key);
+      throw new Error(j.error || "Respons tidak dikenal");
+    }
+    if(key) sessionStorage.setItem("klapperKey", key);
+    DATA = j.rows.map(normalisasi);
+    $("#stempel").textContent = DATA.length.toLocaleString("id-ID") + " siswa tercatat · diperbarui " +
+      new Date(j.updated).toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"});
+    $("#layar").hidden = true;
+    mulai();
+  }catch(err){
+    $("#layar").innerHTML = `<div class="box"><h2>Data belum bisa dimuat</h2><p>${esc(err.message)}</p>
+      <p class="catatan">Pastikan Web App di-deploy dengan akses "Anyone" dan URL-nya benar.</p>
+      <button class="btn" onclick="location.reload()">Coba lagi</button></div>`;
+    $("#stempel").textContent = "Gagal memuat";
+  }
+}
+function tampilSetup(){
+  $("#layar").innerHTML = `<div class="box" style="text-align:left"><h2>Satu langkah lagi</h2>
+   <p>Isi <code>API_URL</code> di bagian <code>CONFIG</code> pada file index.html dengan URL Web App Apps Script (berakhiran /exec).</p></div>`;
+  $("#stempel").textContent = "Belum terhubung";
+}
+function tampilKunci(salah){
+  $("#layar").innerHTML = `<div class="box"><h2>Masukkan kode akses</h2>
+   <p>Data siswa hanya untuk petugas sekolah.</p>
+   <input id="kunci" type="password" placeholder="Kode akses" autocomplete="off">
+   ${salah?'<p style="color:var(--merah)">Kode salah, coba lagi.</p>':''}
+   <button class="btn" id="masuk">Buka data</button></div>`;
+  $("#stempel").textContent = "Terkunci";
+  const go = () => muat($("#kunci").value.trim());
+  $("#masuk").onclick = go; $("#kunci").onkeydown = e => e.key==="Enter" && go();
+  $("#kunci").focus();
+}
+
+/* ---------- Normalisasi baris yang tidak seragam ---------- */
+function normalisasi(r){
+  const nama = (r.NamaLengkap||"").replace(/\s+/g," ").trim();
+  const cat = (r.Catatan||"").trim();
+  let st = (r.Status||"").trim().toUpperCase();
+  let status = "Belum diisi";
+  const baca = s => /AKTIF/.test(s)?"Aktif":/LULUS/.test(s)?"Lulus":/MUTASI/.test(s)?"Mutasi":/KELUAR|KE SMP/.test(s)?"Keluar":"";
+  status = baca(st) || baca(cat.toUpperCase()) || "Belum diisi";
+  const tm = (r.TglMasukKelas||"").match(/(19|20)\d\d/);
+  const tahunMasuk = tm ? +tm[0] : null;
+  const tl = cat.match(/^(19|20)\d\d$/);
+  const tahunLulus = tl ? +tl[0] : null;
+  let jk = (r.JenisKelamin||"").trim().toUpperCase(); if(jk!=="L"&&jk!=="P") jk="";
+  const huruf = ((r.HurufKlapper||nama[0]||"").trim()[0]||"#").toUpperCase();
+  return {nis:+r.NIS||r.NIS, nisn:r.NISN||"", nama, huruf, jk, tempat:r.TempatLahir||"", tglLahir:r.TglLahir||"",
+    status, ortu:r.NamaOrtu||"", tglMasuk:r.TglMasukKelas||"", catatan:cat, tahunMasuk, tahunLulus};
+}
+
+/* ---------- Mulai UI ---------- */
+function mulai(){
+  const tahun = [...new Set(DATA.map(d=>d.tahunMasuk).filter(Boolean))].sort((a,b)=>b-a);
+  $("#fTahun").innerHTML = '<option value="">Semua tahun masuk</option>' + tahun.map(t=>`<option>${t}</option>`).join("");
+  const st = STATUS_URUT.filter(s=>DATA.some(d=>d.status===s));
+  $("#fStatus").innerHTML = '<option value="">Semua status</option>' + st.map(s=>`<option>${s}</option>`).join("");
+  const ada = new Set(DATA.map(d=>d.huruf));
+  $("#huruf").innerHTML = '<button data-h="" aria-pressed="true">Semua</button>' +
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(h=>`<button data-h="${h}" aria-pressed="false" ${ada.has(h)?"":"disabled"}>${h}</button>`).join("");
+  $("#p-dash").hidden = false;
+  gambarRingkasan();
+  terapkan();
+}
+
+function hitung(arr,fn){const m={};arr.forEach(d=>{const k=fn(d);if(k!=null&&k!=="")m[k]=(m[k]||0)+1});return m}
+
+function gambarRingkasan(){
+  const n = DATA.length, bySt = hitung(DATA,d=>d.status), byJK = hitung(DATA,d=>d.jk);
+  const kartu = [
+    ["Total siswa",n,"#0b4a34",""],["Aktif",bySt.Aktif||0,WARNA.Aktif,"Aktif"],["Lulus",bySt.Lulus||0,WARNA.Lulus,"Lulus"],
+    ["Mutasi",bySt.Mutasi||0,WARNA.Mutasi,"Mutasi"],["Keluar",bySt.Keluar||0,WARNA.Keluar,"Keluar"]];
+  $("#stats").innerHTML = kartu.map(([l,v,c,s])=>`<button class="stat" style="--c:${c}" data-s="${s}"><b>${v.toLocaleString("id-ID")}</b><span>${l}</span></button>`).join("");
+  $("#stats").onclick = e => { const b=e.target.closest(".stat"); if(!b) return; resetFilter(); $("#fStatus").value=b.dataset.s; pindah("data"); terapkan(); };
+
+  const tahunMap = hitung(DATA,d=>d.tahunMasuk), ty = Object.keys(tahunMap).sort();
+  const hMap = hitung(DATA,d=>d.huruf), hs = Object.entries(hMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const teksWarna = getComputedStyle(document.body).color;
+  Chart.defaults.color = teksWarna; Chart.defaults.font.family = "'Plus Jakarta Sans',sans-serif";
+  const opsi = {responsive:true,maintainAspectRatio:false};
+  const buat=(id,cfg)=>{ charts[id]&&charts[id].destroy(); charts[id]=new Chart($("#"+id),cfg); };
+  const ls = STATUS_URUT.filter(s=>bySt[s]);
+  buat("cStatus",{type:"doughnut",data:{labels:ls,datasets:[{data:ls.map(s=>bySt[s]),backgroundColor:ls.map(s=>WARNA[s]),borderWidth:0}]},
+    options:{...opsi,cutout:"62%",plugins:{legend:{position:"bottom"}}}});
+  buat("cJK",{type:"doughnut",data:{labels:["Laki-laki","Perempuan","Belum diisi"],datasets:[{data:[byJK.L||0,byJK.P||0,n-(byJK.L||0)-(byJK.P||0)],backgroundColor:["#2c6f9e","#a4486b","#8a948e"],borderWidth:0}]},
+    options:{...opsi,cutout:"62%",plugins:{legend:{position:"bottom"}}}});
+  buat("cTahun",{type:"bar",data:{labels:ty,datasets:[{label:"Siswa masuk",data:ty.map(t=>tahunMap[t]),backgroundColor:"#13694a",borderRadius:5}]},
+    options:{...opsi,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:"rgba(128,128,128,.15)"}},x:{grid:{display:false}}}}});
+  buat("cHuruf",{type:"bar",data:{labels:hs.map(h=>h[0]),datasets:[{data:hs.map(h=>h[1]),backgroundColor:"#c9a227",borderRadius:5}]},
+    options:{...opsi,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:"rgba(128,128,128,.15)"}},x:{grid:{display:false}}}}});
+
+  const pct = f => Math.round(DATA.filter(f).length/n*100);
+  const kual = [["Jenis kelamin",pct(d=>d.jk)],["Status",pct(d=>d.status!=="Belum diisi")],["Tahun masuk",pct(d=>d.tahunMasuk)],
+    ["Tempat dan tanggal lahir",pct(d=>d.tempat&&d.tglLahir)],["Nama orang tua",pct(d=>d.ortu)],["NISN",pct(d=>d.nisn)]];
+  $("#kualitas").innerHTML = kual.map(([l,p])=>`<div class="bar"><div class="label"><span>${l}</span><b>${p}%</b></div><div class="track"><div class="fill" style="width:${p}%"></div></div></div>`).join("");
+}
+
+/* ---------- Filter, urut, tampil ---------- */
+function terapkan(){
+  const q = $("#q").value.trim().toLowerCase(), fs=$("#fStatus").value, fj=$("#fJK").value, ft=$("#fTahun").value;
+  VIEW = DATA.filter(d =>
+    (!fs||d.status===fs)&&(!fj||d.jk===fj)&&(!ft||String(d.tahunMasuk)===ft)&&(!hurufAktif||d.huruf===hurufAktif)&&
+    (!q||(d.nama+" "+d.nis+" "+d.nisn+" "+d.ortu).toLowerCase().includes(q)));
+  const u = $("#urut").value;
+  VIEW.sort(u==="nama"?(a,b)=>a.nama.localeCompare(b.nama,"id"):u==="tahun"?(a,b)=>(b.tahunMasuk||0)-(a.tahunMasuk||0)||b.nis-a.nis:(a,b)=>a.nis-b.nis);
+  page = 1; gambarDaftar();
+}
+function gambarDaftar(){
+  const tampil = VIEW.slice(0,page*PAGE);
+  $("#jumlah").textContent = `Menampilkan ${tampil.length.toLocaleString("id-ID")} dari ${VIEW.length.toLocaleString("id-ID")} siswa`;
+  $("#daftar").innerHTML = VIEW.length ? tampil.map(d=>{
+    const k = d.status==="Belum diisi"?"Belum":d.status;
+    const sub = [d.tahunMasuk?"Masuk "+d.tahunMasuk:"", d.tahunLulus?"Lulus "+d.tahunLulus:""].filter(Boolean).join(" · ") || "Data masuk belum lengkap";
+    return `<button class="siswa" data-nis="${esc(d.nis)}"><div class="avatar ${d.jk}">${esc(d.huruf)}</div>
+      <div><h3>${esc(d.nama)}</h3><small>NIS ${esc(d.nis)} · ${sub}</small><span class="lencana ${k}">${d.status}</span></div></button>`;
+  }).join("") : `<div class="kosong" style="grid-column:1/-1"><b>Tidak ada siswa yang cocok.</b><br>Coba kata kunci lain atau reset filter.</div>`;
+  $("#lagi").hidden = tampil.length>=VIEW.length;
+}
+function resetFilter(){ $("#q").value="";$("#fStatus").value="";$("#fJK").value="";$("#fTahun").value="";hurufAktif="";
+  document.querySelectorAll("#huruf button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.h==="")));}
+
+["q"].forEach(id=>$("#"+id).addEventListener("input",debounce(terapkan,180)));
+["fStatus","fJK","fTahun","urut"].forEach(id=>$("#"+id).addEventListener("change",terapkan));
+$("#reset").onclick=()=>{resetFilter();terapkan()};
+$("#lagi").onclick=()=>{page++;gambarDaftar()};
+$("#huruf").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;hurufAktif=b.dataset.h;
+  document.querySelectorAll("#huruf button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));terapkan()};
+function debounce(f,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}}
+
+/* ---------- Detail ---------- */
+$("#daftar").onclick=e=>{
+  const b=e.target.closest(".siswa"); if(!b) return;
+  const d = DATA.find(x=>String(x.nis)===b.dataset.nis); if(!d) return;
+  $("#mNama").textContent = d.nama;
+  $("#mSub").textContent = "NIS " + d.nis + (d.nisn ? " · NISN " + d.nisn : "");
+  const ttl = [d.tempat,d.tglLahir].filter(Boolean).join(", ");
+  const baris = [["Jenis kelamin",d.jk==="L"?"Laki-laki":d.jk==="P"?"Perempuan":""],["Tempat, tgl lahir",ttl],["Status",d.status],
+    ["Orang tua / wali",d.ortu],["Masuk kelas",d.tglMasuk],["Tahun lulus",d.tahunLulus||""],["Huruf klapper",d.huruf],
+    ["Catatan",d.tahunLulus?"":d.catatan]];
+  $("#mIsi").innerHTML = baris.map(([k,v])=>`<dt>${k}</dt><dd>${v?esc(v):'<span style="color:var(--abu);font-weight:400">Belum tercatat</span>'}</dd>`).join("");
+  $("#dlg").showModal();
+};
+$("#tutup").onclick=()=>$("#dlg").close();
+$("#dlg").addEventListener("click",e=>{if(e.target.id==="dlg")e.target.close()});
+
+/* ---------- CSV ---------- */
+$("#unduh").onclick=()=>{
+  const h=["NIS","NISN","Nama","Huruf","JK","Tempat Lahir","Tgl Lahir","Status","Orang Tua","Tgl Masuk","Tahun Lulus","Catatan"];
+  const c=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+  const rows=VIEW.map(d=>[d.nis,d.nisn,d.nama,d.huruf,d.jk,d.tempat,d.tglLahir,d.status,d.ortu,d.tglMasuk,d.tahunLulus||"",d.tahunLulus?"":d.catatan].map(c).join(","));
+  const blob=new Blob(["\ufeff"+[h.map(c).join(","),...rows].join("\n")],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="klapper-siswa.csv";a.click();URL.revokeObjectURL(a.href);
+};
+
+/* ---------- Tab ---------- */
+function pindah(t){
+  $("#t-dash").setAttribute("aria-selected",String(t==="dash"));$("#t-data").setAttribute("aria-selected",String(t==="data"));
+  if(!DATA.length) return;
+  $("#p-dash").hidden = t!=="dash"; $("#p-data").hidden = t!=="data";
+}
+$("#t-dash").onclick=()=>pindah("dash"); $("#t-data").onclick=()=>pindah("data");
+
+muat(sessionStorage.getItem("klapperKey")||"");
+</script>
+</body>
+</html>
