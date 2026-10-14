@@ -1,213 +1,334 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Buku Klapper SD Muhammadiyah 2 Pekajangan</title>
-<meta name="theme-color" content="#0b4a34">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#08382a">
+<title>Buku Klapper Siswa</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📗</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
-  --hijau:#0b4a34; --hijau2:#13694a; --hijau-muda:#e3f1ea;
-  --emas:#c9a227; --emas-muda:#f7edc8;
-  --bg:#f5f7f2; --kartu:#ffffff; --teks:#17211c; --teks2:#5b6a62; --garis:#dfe6df;
-  --merah:#b4402f; --biru:#2c6f9e; --abu:#8a948e;
-  --r:14px;
+  --bg-main:#f6f5f1;--bg-card:#fff;--border-color:#e7e5df;--text-main:#1f2327;--text-muted:#5d6670;
+  --charcoal:#343a40;--charcoal-dark:#1f2327;
+  --islamic-green:#198754;--green-dark:#146c43;--green-light:#e8f5e9;--green-text:#0f6b3f;
+  --soft-gold:#c9943a;--gold-light:#fff8e7;--gold-text:#8a5d0a;
+  --red-absen:#dc3545;--red-light:#ffebee;--red-text:#b02a37;
+  --blue-badge:#0d6efd;--blue-light:#e7f1ff;--blue-text:#0a58ca;
+  --g1:#08382a;--g2:#0f6b4a;--gold:#e3b75a;--fd:'Plus Jakarta Sans',Inter,system-ui,sans-serif;
+  --radius:14px;--radius-sm:10px;
+  --shadow-sm:0 1px 2px rgba(31,35,39,.04),0 2px 8px rgba(31,35,39,.05);
+  --shadow-md:0 6px 20px rgba(31,35,39,.10);--shadow-lg:0 24px 48px rgba(0,0,0,.28);
+  --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 4l9.5 22.5L72 36 49.5 45.5 40 68l-9.5-22.5L8 36l22.5-9.5z' fill='none' stroke='%23c9943a' stroke-opacity='.16'/%3E%3C/svg%3E");
+  --chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235d6670' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
-@media (prefers-color-scheme:dark){
-  :root{--bg:#0d1612;--kartu:#15221b;--teks:#e8efe9;--teks2:#9fb0a5;--garis:#243329;--hijau-muda:#18372a;--emas-muda:#3a3314}
-}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--teks);line-height:1.55;
-  padding-bottom:env(safe-area-inset-bottom,0px)}
-button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--emas);outline-offset:2px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg-main);color:var(--text-main);
+  min-height:100vh;min-height:100dvh;letter-spacing:-.01em;line-height:1.5;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:700}
+button{touch-action:manipulation;font-family:inherit}
+:focus-visible{outline:3px solid rgba(201,148,58,.6);outline-offset:2px}
+[hidden]{display:none!important}
+svg.ic{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
-/* Hero */
-.hero{background:linear-gradient(135deg,var(--hijau) 0%,var(--hijau2) 100%);color:#fff;
-  padding:calc(28px + env(safe-area-inset-top,0px)) 20px 70px;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;inset:auto -40px -1px -40px;height:46px;
-  background:var(--bg);clip-path:polygon(0 100%,100% 100%,100% 0,50% 70%,0 0)}
-.hero .pola{position:absolute;right:-60px;top:-60px;width:320px;height:320px;opacity:.12;
-  background:conic-gradient(from 0deg,#fff 0 12.5%,transparent 0 25%,#fff 0 37.5%,transparent 0 50%,#fff 0 62.5%,transparent 0 75%,#fff 0 87.5%,transparent 0);
-  border-radius:50%;mask:radial-gradient(circle,transparent 30%,#000 31%,#000 60%,transparent 61%)}
-.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
-.hero .wrap{position:relative}
-.sekolah{font-size:.85rem;letter-spacing:.02em;color:var(--emas-muda);font-weight:600}
-h1{font-family:'Fraunces',serif;font-weight:800;font-size:clamp(1.9rem,5.5vw,3.2rem);line-height:1.08;margin:6px 0 8px}
-.hero p.sub{max-width:56ch;opacity:.9}
-.stempel{display:inline-block;margin-top:14px;background:rgba(255,255,255,.14);border:1px solid rgba(201,162,39,.7);
-  padding:5px 12px;border-radius:99px;font-size:.8rem}
+@keyframes screenIn{from{opacity:0;transform:translateY(10px)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(.98)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}}
+@keyframes rowIn{from{opacity:0;transform:translateY(8px)}}
+@keyframes pop{from{opacity:0;transform:scale(.94)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes flow{to{background-position:200% 0}}
+@keyframes shim{to{background-position:-150% 0}}
+@keyframes orb{to{transform:translate3d(-40px,50px,0) scale(1.18)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(227,183,90,.55)}100%{box-shadow:0 0 0 24px rgba(227,183,90,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes barGrow{from{clip-path:inset(0 100% 0 0 round 99px)}to{clip-path:inset(0 0 0 0 round 99px)}}
 
-/* Tabs */
-.tabs{display:flex;gap:6px;margin:-34px auto 20px;position:relative;z-index:2}
-.tab{flex:1;max-width:220px;border:0;cursor:pointer;padding:12px 14px;border-radius:12px;background:var(--kartu);
-  font-weight:700;box-shadow:0 2px 0 var(--garis);color:var(--teks2)}
-.tab[aria-selected=true]{background:var(--emas);color:#2a2100;box-shadow:0 3px 0 #9c7d12}
+/* ===== GATE (kunci / setup / galat) ===== */
+#gate-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;isolation:isolate;
+  background:radial-gradient(120% 90% at 50% 0,var(--g2) 0,var(--g1) 55%,#041f17);animation:screenIn .5s var(--ease) backwards}
+#gate-screen::before{content:'';position:absolute;inset:0;z-index:-1;background-image:var(--pattern);background-size:80px 80px;
+  -webkit-mask-image:radial-gradient(circle at 50% 40%,#000,transparent 78%);mask-image:radial-gradient(circle at 50% 40%,#000,transparent 78%)}
+.orb{position:absolute;z-index:-1;border-radius:50%;filter:blur(50px);opacity:.5;animation:orb 14s ease-in-out infinite alternate;pointer-events:none}
+.orb.o1{width:320px;height:320px;background:var(--gold);top:-90px;right:-80px}
+.orb.o2{width:380px;height:380px;background:#1fb57a;bottom:-140px;left:-100px;animation-delay:-5s}
+.orb.o3{width:190px;height:190px;background:var(--gold);bottom:18%;right:10%;opacity:.28;animation-delay:-9s}
+.gate-card{background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.55);
+  border-radius:22px;padding:36px 32px 32px;width:100%;max-width:440px;box-shadow:var(--shadow-lg);text-align:center;position:relative;animation:cardIn .6s var(--ease) .08s backwards}
+.gate-card::before{content:'';position:absolute;left:32px;right:32px;top:0;height:3px;border-radius:0 0 4px 4px;
+  background:linear-gradient(90deg,#198754,var(--gold),#198754);background-size:200% 100%;animation:flow 4s linear infinite}
+.logo-mark{position:relative;width:62px;height:62px;margin:0 auto 14px;border-radius:19px;display:grid;place-items:center;color:#fff;font-size:28px;
+  background:linear-gradient(135deg,#1f9d62,var(--green-dark));box-shadow:0 10px 24px rgba(25,135,84,.35),inset 0 0 0 2px rgba(255,255,255,.18);animation:floaty 4.5s ease-in-out infinite}
+.logo-mark::after{content:'';position:absolute;inset:0;border-radius:inherit;animation:pulse 2.4s ease-out infinite}
+.gate-card h1{font-family:var(--fd);font-weight:800;font-size:24px;letter-spacing:-.02em;
+  background:linear-gradient(100deg,var(--g1) 30%,#c9943a 50%,var(--g1) 70%);background-size:250% 100%;background-position:100% 0;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 5s linear infinite}
+.gate-card p.s{font-size:13px;color:var(--text-muted);margin-top:4px}
+.gate-body{margin-top:22px;text-align:left}
+.gate-body input{width:100%;min-height:46px;padding:10px 14px;border:1.5px solid var(--border-color);border-radius:var(--radius-sm);font:inherit;font-size:14px;background:#fff;outline:none;margin-bottom:12px;transition:border-color .2s,box-shadow .2s}
+.gate-body input:focus{border-color:var(--islamic-green);box-shadow:0 0 0 4px rgba(25,135,84,.14)}
+.login-err{color:var(--red-text);background:var(--red-light);border-radius:10px;padding:10px 12px;font-size:12.5px;margin-bottom:12px;animation:pop .3s var(--spring)}
+.gate-body code{background:var(--gold-light);color:var(--gold-text);padding:1px 6px;border-radius:6px;font-size:12.5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:46px;padding:12px 18px;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;transition:transform .2s var(--ease),box-shadow .25s,background-color .2s,border-color .2s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:linear-gradient(180deg,#1a8a58,#157347);color:#fff;box-shadow:0 6px 16px rgba(25,135,84,.28)}
+.btn-outline{background:#fff;border:1.5px solid var(--border-color);color:var(--charcoal)}
+.btn.sm{width:auto;min-height:40px;padding:8px 16px;font-size:13px}
 
-/* Stat */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
-.stat{background:var(--kartu);border:1px solid var(--garis);border-radius:var(--r);padding:14px 16px;cursor:pointer;
-  text-align:left;border-left:6px solid var(--c,var(--hijau));transition:transform .15s}
-.stat:hover{transform:translateY(-2px)}
-.stat b{display:block;font-family:'Fraunces',serif;font-size:2rem;line-height:1.1}
-.stat span{color:var(--teks2);font-size:.85rem}
+/* ===== LOADING ===== */
+#loading-overlay{display:flex;position:fixed;inset:0;background:rgba(246,245,241,.9);z-index:9999;justify-content:center;align-items:center;animation:fadeIn .2s ease}
+.loader{display:flex;align-items:center;gap:14px;background:#fff;padding:16px 22px;border-radius:16px;box-shadow:var(--shadow-md);font-weight:600;color:var(--charcoal);font-size:14px;animation:pop .35s var(--spring) backwards;max-width:90vw}
+.spinner{flex:none;width:24px;height:24px;border-radius:50%;border:3px solid rgba(25,135,84,.18);border-top-color:var(--islamic-green);animation:spin .8s linear infinite}
 
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:18px}
-.box{background:var(--kartu);border:1px solid var(--garis);border-radius:var(--r);padding:16px}
-.box h2{font-family:'Fraunces',serif;font-size:1.15rem;margin-bottom:10px}
-.box.lebar{grid-column:1/-1}
+/* ===== APP ===== */
+#app{display:none;min-height:100vh;min-height:100dvh;animation:screenIn .5s var(--ease) backwards}
+.topbar{background:linear-gradient(135deg,var(--g1),#0f5a41);color:#fff;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 rgba(201,148,58,.55),0 8px 20px rgba(0,0,0,.12)}
+.topbar-left{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{flex:none;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:19px;color:#fff;background:linear-gradient(135deg,#1f9d62,var(--green-dark));box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.2)}
+.topbar-title{font-size:15.5px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-sub{font-size:11.5px;color:#c4cad0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role-badge{flex:none;background:rgba(255,255,255,.1);border:1px solid rgba(201,148,58,.5);padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:600;color:#f0cf85;white-space:nowrap}
+
+.nav-tabs{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border-color);padding:0 24px;display:flex;gap:4px;overflow-x:auto;position:sticky;top:60px;z-index:90;scrollbar-width:none}
+.nav-tab{position:relative;display:inline-flex;align-items:center;gap:8px;padding:0 16px;min-height:50px;border:0;background:none;font-size:13.5px;font-weight:500;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:color .2s,background-color .2s}
+.nav-tab::after{content:'';position:absolute;left:12px;right:12px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--islamic-green);transform:scaleX(0);transition:transform .35s var(--ease)}
+.nav-ic{display:inline-grid;place-items:center;font-size:18px}
+.nav-tab.active{color:var(--green-text);font-weight:600}
+.nav-tab.active::after{transform:scaleX(1)}
+.main{max-width:1180px;margin:0 auto;padding:28px 20px 48px}
+.page{display:none}
+.page.active{display:block;animation:pageIn .45s var(--ease) backwards}
+.page-header{margin-bottom:18px}
+.page-header h2{font-family:var(--fd);font-weight:800;font-size:22px;letter-spacing:-.02em}
+.page-header p{font-size:13.5px;color:var(--text-muted);margin-top:4px}
+
+/* Stat gradient */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px}
+.stat{position:relative;overflow:hidden;border:0;text-align:left;cursor:pointer;border-radius:18px;padding:16px 16px 14px;color:#fff;background:linear-gradient(135deg,var(--g2),var(--g1));box-shadow:var(--shadow-md);animation:cardIn .6s var(--ease) backwards;animation-delay:calc(var(--i,0)*80ms)}
+.stat::after{content:'';position:absolute;inset:0;background-image:var(--pattern);background-size:60px;-webkit-mask-image:linear-gradient(135deg,transparent 40%,#000);mask-image:linear-gradient(135deg,transparent 40%,#000);pointer-events:none}
+.stat.gold{background:linear-gradient(135deg,var(--gold),#b8812a);color:#2e2000}
+.stat.dark{background:linear-gradient(135deg,#3a424a,#1f2327)}
+.stat.blue{background:linear-gradient(135deg,#1e7be6,#0a4aa8)}
+.stat.red{background:linear-gradient(135deg,#e5566a,#a82333)}
+.stat i{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;opacity:.85;display:block}
+.stat b{display:block;font:800 30px/1.1 var(--fd);margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.stat small{font-size:11.5px;opacity:.85}
+
+/* Card */
+.card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);overflow:hidden;overflow:clip;margin-bottom:22px;box-shadow:var(--shadow-sm)}
+.card-header{padding:14px 20px;background:#fff;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.card-title{font-size:12.5px;font-weight:700;color:var(--charcoal);text-transform:uppercase;letter-spacing:.04em}
+.card-body{padding:20px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 18px}
+.grid2 .card{animation:cardIn .6s var(--ease) backwards}
+.span-all{grid-column:1/-1}
 .chartbox{position:relative;height:260px}
-.kualitas .bar{margin:10px 0}
-.kualitas .bar div.label{display:flex;justify-content:space-between;font-size:.85rem}
-.kualitas .track{height:9px;background:var(--hijau-muda);border-radius:9px;overflow:hidden;margin-top:4px}
-.kualitas .fill{height:100%;background:linear-gradient(90deg,var(--hijau2),var(--emas));border-radius:9px}
-.catatan{font-size:.82rem;color:var(--teks2);margin-top:8px}
+
+/* progress */
+.pbar{margin-bottom:14px}
+.pbar .row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:5px}
+.ptrack{height:10px;background:#edebe5;border-radius:99px;overflow:hidden}
+.pfill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--islamic-green),#2cc07b);animation:barGrow .9s var(--ease) backwards}
+.pfill.gold-bar{background:linear-gradient(90deg,var(--soft-gold),#f0cf85)}
+.note{font-size:12.5px;color:var(--text-muted);margin-top:6px}
 
 /* Filter */
-.filter{display:grid;grid-template-columns:2fr repeat(3,1fr) auto;gap:8px;margin-bottom:10px}
-.filter input,.filter select{padding:11px 12px;border:1px solid var(--garis);border-radius:10px;background:var(--kartu);width:100%}
-.btn{border:0;background:var(--hijau);color:#fff;padding:11px 16px;border-radius:10px;font-weight:700;cursor:pointer}
-.btn.alt{background:var(--kartu);color:var(--hijau);border:1px solid var(--hijau)}
-@media(prefers-color-scheme:dark){.btn.alt{color:var(--emas);border-color:var(--emas)}}
-@media(max-width:780px){.filter{grid-template-columns:1fr 1fr}.filter input[type=search]{grid-column:1/-1}}
-
-.huruf{display:flex;gap:5px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
-.huruf button{min-width:34px;height:34px;border-radius:9px;border:1px solid var(--garis);background:var(--kartu);cursor:pointer;font-weight:700;flex:none}
-.huruf button[aria-pressed=true]{background:var(--hijau);color:#fff;border-color:var(--hijau)}
+.filter{min-height:40px;padding:8px 12px;border:1.5px solid var(--border-color);border-radius:10px;font:inherit;font-size:13px;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+.filter:focus{border-color:var(--islamic-green);box-shadow:0 0 0 3px rgba(25,135,84,.14)}
+select.filter{-webkit-appearance:none;appearance:none;background-image:var(--chevron);background-repeat:no-repeat;background-position:right 11px center;background-size:16px;padding-right:34px;cursor:pointer}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;width:100%}
+.filters input[type=search]{flex:1 1 220px}
+.huruf{display:flex;gap:5px;overflow-x:auto;padding:12px 20px;border-bottom:1px solid var(--border-color);scrollbar-width:thin;background:#faf9f6}
+.huruf button{min-width:34px;height:34px;border-radius:9px;border:1.5px solid var(--border-color);background:#fff;cursor:pointer;font-weight:700;font-size:13px;flex:none;color:var(--charcoal);transition:background-color .2s,color .2s,border-color .2s}
+.huruf button[aria-pressed=true]{background:var(--islamic-green);color:#fff;border-color:var(--islamic-green)}
 .huruf button:disabled{opacity:.35;cursor:default}
-.info{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 12px;color:var(--teks2);font-size:.9rem}
+.info-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 20px;font-size:13px;color:var(--text-muted);border-bottom:1px solid var(--border-color)}
 
-/* Kartu siswa */
-.daftar{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.siswa{background:var(--kartu);border:1px solid var(--garis);border-radius:var(--r);padding:14px;display:flex;gap:12px;
-  text-align:left;cursor:pointer;width:100%}
-.siswa:hover{border-color:var(--hijau2)}
-.avatar{flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
-  font-family:'Fraunces',serif;font-weight:800;font-size:1.3rem;color:#fff;background:var(--hijau2)}
-.avatar.P{background:#a4486b}
-.siswa h3{font-size:.98rem;line-height:1.25;margin-bottom:2px;overflow-wrap:anywhere}
-.siswa small{color:var(--teks2);display:block}
-.lencana{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:99px;margin-top:5px;
-  background:var(--hijau-muda);color:var(--hijau)}
-@media(prefers-color-scheme:dark){.lencana{color:#9be0bd}}
-.lencana.Lulus{background:var(--emas-muda);color:#7a5f00}
-.lencana.Keluar{background:#f6dcd7;color:var(--merah)}
-.lencana.Mutasi{background:#d9e8f3;color:var(--biru)}
-.lencana.Belum{background:#e8ebe9;color:#59635d}
-@media(prefers-color-scheme:dark){.lencana.Lulus{color:#f0d56a}.lencana.Keluar{background:#4a2520;color:#f2a99c}.lencana.Mutasi{background:#1c3345;color:#9cc9e6}.lencana.Belum{background:#27312b;color:#aab5ae}}
-.kosong{text-align:center;padding:50px 10px;color:var(--teks2)}
+/* Table */
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);padding:12px 18px;background:#faf9f6;border-bottom:1px solid var(--border-color);white-space:nowrap}
+td{padding:13px 18px;font-size:13.5px;border-bottom:1px solid var(--border-color);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr{animation:rowIn .45s var(--ease) backwards;animation-delay:var(--d,0ms)}
+tr.clickable-row{cursor:pointer;transition:background-color .2s}
+tr.clickable-row:active td{background:var(--green-light)}
+tr.clickable-row td:first-child{transition:box-shadow .25s var(--ease)}
+.nm{display:flex;align-items:center;gap:12px;min-width:0}
+.av{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:800 15px var(--fd);color:#fff;background:linear-gradient(135deg,#1f9d62,var(--green-dark))}
+.av.P{background:linear-gradient(135deg,#d38aa7,#a4486b)}
+.nm b{display:block;font-weight:600;overflow-wrap:anywhere}
+.nm small{display:block;color:var(--text-muted);font-size:12px}
+.empty-state{padding:34px 16px;text-align:center;color:var(--text-muted);font-size:13.5px}
+.more{padding:16px;text-align:center;border-top:1px solid var(--border-color)}
 
-/* Modal */
-dialog{border:0;border-radius:18px;padding:0;max-width:480px;width:calc(100% - 28px);background:var(--kartu);color:var(--teks)}
-dialog::backdrop{background:rgba(5,25,17,.6)}
-.m-head{background:linear-gradient(135deg,var(--hijau),var(--hijau2));color:#fff;padding:20px;position:relative}
-.m-head h3{font-family:'Fraunces',serif;font-size:1.4rem;line-height:1.2;padding-right:34px}
-.m-head .x{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;cursor:pointer;font-size:1.1rem}
-.m-body{padding:8px 20px 20px}
-.m-body dl{display:grid;grid-template-columns:130px 1fr;gap:0}
-.m-body dt,.m-body dd{padding:9px 0;border-bottom:1px solid var(--garis)}
-.m-body dt{color:var(--teks2);font-size:.88rem}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.bg{background:var(--green-light);color:var(--green-text)}
+.bbl{background:var(--blue-light);color:var(--blue-text)}
+.bgl{background:var(--gold-light);color:var(--gold-text)}
+.brl{background:var(--red-light);color:var(--red-text)}
+.bgr{background:#edebe5;color:var(--text-muted)}
+
+/* Modal detail */
+dialog{border:0;border-radius:18px;padding:0;max-width:480px;width:calc(100% - 28px);background:#fff;color:var(--text-main);overflow:hidden;box-shadow:var(--shadow-lg)}
+dialog[open]{animation:pop .35s var(--spring)}
+dialog::backdrop{background:rgba(4,31,23,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.siswa-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--charcoal),var(--charcoal-dark));padding:22px;color:#fff;display:flex;align-items:center;gap:16px;border-left:4px solid var(--islamic-green)}
+.siswa-hero::after{content:'';position:absolute;inset:0;background-image:var(--pattern);background-size:80px 80px;-webkit-mask-image:linear-gradient(90deg,transparent 40%,#000);mask-image:linear-gradient(90deg,transparent 40%,#000);pointer-events:none}
+.siswa-avatar{position:relative;z-index:1;flex:none;width:60px;height:60px;background:linear-gradient(135deg,#f0cf85,var(--soft-gold));color:#3b2900;border-radius:50%;display:grid;place-items:center;font:700 24px var(--fd);box-shadow:0 0 0 4px rgba(201,148,58,.28)}
+.siswa-info{position:relative;z-index:1;min-width:0;padding-right:30px}
+.siswa-info h3{font-size:18px;overflow-wrap:anywhere}
+.siswa-info p{font-size:12.5px;color:#d3e6d6;margin-top:2px}
+.x{position:absolute;z-index:2;right:12px;top:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;cursor:pointer;font-size:15px}
+.m-body{padding:6px 22px 20px}
+.m-body dl{display:grid;grid-template-columns:130px 1fr}
+.m-body dt,.m-body dd{padding:10px 0;border-bottom:1px dashed var(--border-color);font-size:13.5px}
+.m-body dt{color:var(--text-muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:12px}
 .m-body dd{font-weight:600;overflow-wrap:anywhere}
+.m-body dd .none{color:#9aa1a8;font-weight:400}
 
-/* Status / lock */
-.layar{min-height:60vh;display:grid;place-items:center;text-align:center;padding:30px}
-.layar .box{max-width:460px}
-.layar input{padding:11px;border:1px solid var(--garis);border-radius:10px;width:100%;margin:10px 0;background:var(--bg)}
-.spin{width:38px;height:38px;border:4px solid var(--hijau-muda);border-top-color:var(--emas);border-radius:50%;animation:putar 1s linear infinite;margin:0 auto 12px}
-@keyframes putar{to{transform:rotate(360deg)}}
-footer{text-align:center;color:var(--teks2);font-size:.82rem;padding:26px 16px 34px}
-[hidden]{display:none!important}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+footer{text-align:center;color:var(--text-muted);font-size:12.5px;padding:6px 16px 30px}
+
+@media (hover:hover) and (pointer:fine){
+  .stat{transition:transform .3s var(--spring)}.stat:hover{transform:translateY(-3px)}
+  .nav-tab:hover{color:var(--charcoal);background:rgba(0,0,0,.03)}
+  tr.clickable-row:hover td{background:#f1f9f3}
+  tr.clickable-row:hover td:first-child{box-shadow:inset 4px 0 0 var(--islamic-green)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(25,135,84,.36)}
+  .btn-outline:hover{border-color:var(--islamic-green);color:var(--green-text)}
+  .huruf button:not(:disabled):not([aria-pressed=true]):hover{border-color:var(--islamic-green);color:var(--green-text)}
+}
+@media (pointer:coarse){.filter,.gate-body input{min-height:48px;font-size:16px}}
+
+@media (max-width:720px){
+  .topbar{padding:0 14px;height:56px}.topbar-title{font-size:14.5px}.brand-mark{width:34px;height:34px}
+  .main{padding:18px 12px calc(96px + var(--safe-b))}
+  .page-header h2{font-size:20px}
+  .card{border-radius:16px;margin-bottom:18px}.card-header{padding:14px}.card-body{padding:14px}
+  .stats{grid-template-columns:1fr 1fr}.stat b{font-size:26px}
+  .huruf,.info-bar{padding-left:14px;padding-right:14px}
+  .gate-card{padding:30px 20px 24px}
+  /* nav bawah */
+  .nav-tabs{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:90;padding:6px 8px calc(6px + var(--safe-b));gap:4px;border-bottom:0;border-top:1px solid var(--border-color);background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 -8px 24px rgba(0,0,0,.07)}
+  .nav-tab{flex:1;flex-direction:column;justify-content:center;gap:2px;min-height:54px;padding:6px 4px;border-radius:12px;font-size:11px;white-space:normal;text-align:center;line-height:1.2}
+  .nav-tab::after{display:none}.nav-ic{font-size:21px}.nav-tab.active{background:var(--green-light)}
+  /* tabel jadi daftar */
+  table.stack thead{display:none}
+  table.stack,table.stack tbody{display:block}
+  table.stack tr{display:block;padding:12px 14px;border-bottom:1px solid var(--border-color)}
+  table.stack tbody tr:last-child{border-bottom:0}
+  table.stack td{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:4px 0;border:0;text-align:right;font-size:13.5px}
+  table.stack td::before{content:attr(data-label);flex:none;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);text-align:left}
+  table.stack td.first{display:block;text-align:left;padding-bottom:8px}
+  table.stack td.first::before{content:none}
+  .m-body dl{grid-template-columns:110px 1fr}
+}
+@media (max-width:430px){.brand-mark{display:none}.role-badge{padding:4px 9px;font-size:11px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="pola" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="sekolah" id="namaSekolah">SD Muhammadiyah 2 Pekajangan</div>
+<div id="loading-overlay" role="status" aria-live="polite"><div class="loader"><span class="spinner" aria-hidden="true"></span><span>Menghubungkan ke basis data cloud…</span></div></div>
+
+<!-- GATE: kode akses / setup / galat -->
+<div id="gate-screen" hidden><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i>
+  <div class="gate-card">
+    <div class="logo-mark" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></div>
     <h1>Buku Klapper Siswa</h1>
-    <p class="sub">Induk NIS dari angkatan 1955 sampai siswa aktif hari ini, tersaji rapi dan bisa dicari dalam hitungan detik.</p>
-    <span class="stempel" id="stempel">Bismillah…</span>
+    <p class="s" id="gate-sub">Induk NIS SD Muhammadiyah</p>
+    <div class="gate-body" id="gate-body"></div>
   </div>
-</header>
+</div>
 
-<main class="wrap">
-  <div class="tabs" role="tablist">
-    <button class="tab" role="tab" id="t-dash" aria-selected="true">Ringkasan</button>
-    <button class="tab" role="tab" id="t-data" aria-selected="false">Data siswa</button>
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="brand-mark" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></div>
+      <div style="min-width:0"><div class="topbar-title" id="namaSekolah">Buku Klapper Siswa</div><div class="topbar-sub" id="tsub">Memuat…</div></div>
+    </div>
+    <span class="role-badge">Induk NIS</span>
+  </div>
+  <div class="nav-tabs" role="tablist">
+    <button class="nav-tab active" id="t-dash" role="tab"><span class="nav-ic"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg></span>Ringkasan</button>
+    <button class="nav-tab" id="t-data" role="tab"><span class="nav-ic"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Data Siswa</button>
   </div>
 
-  <section id="layar" class="layar"><div><div class="spin"></div><p>Mengambil data dari Google Sheet…</p></div></section>
-
-  <!-- RINGKASAN -->
-  <section id="p-dash" hidden>
-    <div class="stats" id="stats"></div>
-    <div class="grid2">
-      <div class="box"><h2>Status siswa</h2><div class="chartbox"><canvas id="cStatus"></canvas></div></div>
-      <div class="box"><h2>Laki-laki dan perempuan</h2><div class="chartbox"><canvas id="cJK"></canvas></div></div>
-      <div class="box lebar"><h2>Siswa masuk per tahun</h2><div class="chartbox"><canvas id="cTahun"></canvas></div></div>
-      <div class="box kualitas"><h2>Kelengkapan data</h2><div id="kualitas"></div>
-        <p class="catatan">Bagian yang masih rendah perlu dilengkapi dari buku induk fisik.</p></div>
-      <div class="box"><h2>Huruf klapper terbanyak</h2><div class="chartbox"><canvas id="cHuruf"></canvas></div></div>
+  <div class="main">
+    <div class="page active" id="p-dash">
+      <div class="page-header"><h2>Ringkasan Klapper</h2><p>Gambaran seluruh siswa yang tercatat di buku induk, dari angkatan pertama sampai yang aktif sekarang</p></div>
+      <div class="stats" id="stats"></div>
+      <div class="grid2">
+        <div class="card"><div class="card-header"><span class="card-title">Status Siswa</span></div><div class="card-body"><div class="chartbox"><canvas id="cStatus"></canvas></div></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">Laki-laki dan Perempuan</span></div><div class="card-body"><div class="chartbox"><canvas id="cJK"></canvas></div></div></div>
+        <div class="card span-all"><div class="card-header"><span class="card-title">Siswa Masuk per Tahun</span></div><div class="card-body"><div class="chartbox"><canvas id="cTahun"></canvas></div></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">Kelengkapan Data</span></div><div class="card-body"><div id="kualitas"></div><p class="note">Bagian yang rendah perlu dilengkapi dari buku induk fisik.</p></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">Huruf Klapper Terbanyak</span></div><div class="card-body"><div class="chartbox"><canvas id="cHuruf"></canvas></div></div></div>
+      </div>
     </div>
-  </section>
 
-  <!-- DATA -->
-  <section id="p-data" hidden>
-    <div class="filter">
-      <input type="search" id="q" placeholder="Cari nama, NIS, nama orang tua…" aria-label="Cari siswa">
-      <select id="fStatus" aria-label="Status"><option value="">Semua status</option></select>
-      <select id="fJK" aria-label="Jenis kelamin"><option value="">L dan P</option><option value="L">Laki-laki</option><option value="P">Perempuan</option></select>
-      <select id="fTahun" aria-label="Tahun masuk"><option value="">Semua tahun masuk</option></select>
-      <button class="btn alt" id="reset">Reset</button>
+    <div class="page" id="p-data">
+      <div class="page-header"><h2>Data Siswa</h2><p>Cari, saring, lalu ketuk baris untuk melihat detail</p></div>
+      <div class="card">
+        <div class="card-header"><div class="filters">
+          <input class="filter" type="search" id="q" placeholder="Cari nama, NIS, atau orang tua…" aria-label="Cari siswa">
+          <select class="filter" id="fStatus" aria-label="Status"><option value="">Semua status</option></select>
+          <select class="filter" id="fJK" aria-label="Jenis kelamin"><option value="">L dan P</option><option value="L">Laki-laki</option><option value="P">Perempuan</option></select>
+          <select class="filter" id="fTahun" aria-label="Tahun masuk"><option value="">Semua tahun</option></select>
+        </div></div>
+        <div class="huruf" id="huruf" aria-label="Filter huruf klapper"></div>
+        <div class="info-bar"><span id="jumlah"></span>
+          <span style="display:flex;gap:8px;flex-wrap:wrap">
+            <select class="filter" id="urut" aria-label="Urutkan"><option value="nis">Urut NIS</option><option value="nama">Nama A-Z</option><option value="tahun">Masuk terbaru</option></select>
+            <button class="btn btn-outline sm" id="reset">Reset</button>
+            <button class="btn btn-primary sm" id="unduh">Unduh CSV</button></span></div>
+        <div style="overflow-x:auto"><table class="stack">
+          <thead><tr><th>Siswa</th><th>Jenis Kelamin</th><th>Tahun Masuk</th><th>Orang Tua</th><th>Status</th></tr></thead>
+          <tbody id="daftar"></tbody></table></div>
+        <div class="more" id="more" hidden><button class="btn btn-outline sm" id="lagi">Tampilkan lebih banyak</button></div>
+      </div>
     </div>
-    <div class="huruf" id="huruf" aria-label="Filter huruf klapper"></div>
-    <div class="info"><span id="jumlah"></span>
-      <span><select id="urut" aria-label="Urutkan" style="padding:8px;border:1px solid var(--garis);border-radius:9px;background:var(--kartu)">
-        <option value="nis">Urut NIS</option><option value="nama">Urut nama A-Z</option><option value="tahun">Tahun masuk terbaru</option></select>
-        <button class="btn" id="unduh">Unduh CSV</button></span></div>
-    <div class="daftar" id="daftar"></div>
-    <div style="text-align:center;margin-top:16px"><button class="btn alt" id="lagi" hidden>Tampilkan lebih banyak</button></div>
-  </section>
-</main>
-
-<footer>Dikelola mprop x sdmutu · data diambil langsung dari data induk/nis/kleper</footer>
+    <footer>Dikelola Tata Usaha · data langsung dari Google Sheet INDUK NIS KLEPER</footer>
+  </div>
+</div>
 
 <dialog id="dlg">
-  <div class="m-head"><button class="x" id="tutup" aria-label="Tutup">✕</button><h3 id="mNama"></h3><div id="mSub" style="opacity:.9;font-size:.9rem"></div></div>
+  <button class="x" id="tutup" aria-label="Tutup">✕</button>
+  <div class="siswa-hero"><div class="siswa-avatar" id="mAv"></div><div class="siswa-info"><h3 id="mNama"></h3><p id="mSub"></p></div></div>
   <div class="m-body"><dl id="mIsi"></dl></div>
 </dialog>
 
 <script>
 /* ============ PENGATURAN ============ */
 const CONFIG = {
-  // Tempel URL Web App Apps Script (yang berakhiran /exec) di sini:
-  API_URL: "https://script.google.com/macros/s/AKfycbx6S2h0GnwaTcAZ6Huykq6Qygr2DNXDNpNsm0dauVvZ84Ep-i7e3WLHtwRnEdzw_hg/exec",
-  NAMA_SEKOLAH: "SD Muhammadiyah · Pekalongan"
+  API_URL: "",   // tempel URL Web App Apps Script (berakhiran /exec)
+  NAMA_SEKOLAH: "Buku Klapper Siswa"
 };
 /* ====================================== */
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let DATA = [], VIEW = [], page = 1, PAGE = 36, hurufAktif = "", charts = {};
+let DATA = [], VIEW = [], page = 1, PAGE = 40, hurufAktif = "", charts = {};
 const STATUS_URUT = ["Aktif","Lulus","Mutasi","Keluar","Belum diisi"];
-const WARNA = {"Aktif":"#13694a","Lulus":"#c9a227","Mutasi":"#2c6f9e","Keluar":"#b4402f","Belum diisi":"#8a948e"};
-
+const WARNA = {"Aktif":"#198754","Lulus":"#c9943a","Mutasi":"#0d6efd","Keluar":"#dc3545","Belum diisi":"#adb5bd"};
+const BADGE = {"Aktif":"bg","Lulus":"bgl","Mutasi":"bbl","Keluar":"brl","Belum diisi":"bgr"};
 $("#namaSekolah").textContent = CONFIG.NAMA_SEKOLAH;
 
-/* ---------- Ambil data ---------- */
+function gate(html, sub){ $("#loading-overlay").hidden = true; $("#app").style.display="none";
+  $("#gate-screen").hidden = false; $("#gate-body").innerHTML = html; if(sub) $("#gate-sub").textContent = sub; }
+
 async function muat(key){
-  if(!CONFIG.API_URL) return tampilSetup();
+  if(!CONFIG.API_URL) return gate(`<p style="font-size:13.5px">Isi <code>API_URL</code> pada bagian <code>CONFIG</code> di file index.html dengan URL Web App Apps Script (berakhiran /exec).</p>`,"Belum terhubung ke Google Sheet");
   try{
-    const url = CONFIG.API_URL + (key ? "?key=" + encodeURIComponent(key) : "");
-    const res = await fetch(url);
+    const res = await fetch(CONFIG.API_URL + (key ? "?key=" + encodeURIComponent(key) : ""));
     const j = await res.json();
     if(!j.ok){
       if(j.error === "unauthorized") return tampilKunci(!!key);
@@ -215,99 +336,70 @@ async function muat(key){
     }
     if(key) sessionStorage.setItem("klapperKey", key);
     DATA = j.rows.map(normalisasi);
-    $("#stempel").textContent = DATA.length.toLocaleString("id-ID") + " siswa tercatat · diperbarui " +
-      new Date(j.updated).toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"});
-    $("#layar").hidden = true;
+    $("#tsub").textContent = DATA.length.toLocaleString("id-ID") + " siswa · diperbarui " + new Date(j.updated).toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"});
+    $("#loading-overlay").hidden = true; $("#gate-screen").hidden = true; $("#app").style.display = "block";
     mulai();
   }catch(err){
-    $("#layar").innerHTML = `<div class="box"><h2>Data belum bisa dimuat</h2><p>${esc(err.message)}</p>
-      <p class="catatan">Pastikan Web App di-deploy dengan akses "Anyone" dan URL-nya benar.</p>
-      <button class="btn" onclick="location.reload()">Coba lagi</button></div>`;
-    $("#stempel").textContent = "Gagal memuat";
+    gate(`<div class="login-err" role="alert">${esc(err.message)}</div><p class="note" style="margin:0 0 14px">Pastikan Web App di-deploy dengan akses "Anyone" dan URL-nya benar.</p><button class="btn btn-primary" onclick="location.reload()">Coba lagi</button>`,"Data belum bisa dimuat");
   }
 }
-function tampilSetup(){
-  $("#layar").innerHTML = `<div class="box" style="text-align:left"><h2>Satu langkah lagi</h2>
-   <p>Isi <code>API_URL</code> di bagian <code>CONFIG</code> pada file index.html dengan URL Web App Apps Script (berakhiran /exec).</p></div>`;
-  $("#stempel").textContent = "Belum terhubung";
-}
 function tampilKunci(salah){
-  $("#layar").innerHTML = `<div class="box"><h2>Masukkan kode akses</h2>
-   <p>Data siswa hanya untuk petugas sekolah.</p>
-   <input id="kunci" type="password" placeholder="Kode akses" autocomplete="off">
-   ${salah?'<p style="color:var(--merah)">Kode salah, coba lagi.</p>':''}
-   <button class="btn" id="masuk">Buka data</button></div>`;
-  $("#stempel").textContent = "Terkunci";
-  const go = () => muat($("#kunci").value.trim());
-  $("#masuk").onclick = go; $("#kunci").onkeydown = e => e.key==="Enter" && go();
-  $("#kunci").focus();
+  gate(`${salah?'<div class="login-err" role="alert">Kode salah, coba lagi.</div>':''}
+    <input id="kunci" type="password" placeholder="Kode akses" autocomplete="off" aria-label="Kode akses">
+    <button class="btn btn-primary" id="masuk">Buka Data →</button>`,"Data siswa hanya untuk petugas sekolah");
+  const go = () => { $("#loading-overlay").hidden=false; muat($("#kunci").value.trim()); };
+  $("#masuk").onclick = go; $("#kunci").onkeydown = e => e.key==="Enter" && go(); $("#kunci").focus();
 }
 
-/* ---------- Normalisasi baris yang tidak seragam ---------- */
 function normalisasi(r){
   const nama = (r.NamaLengkap||"").replace(/\s+/g," ").trim();
   const cat = (r.Catatan||"").trim();
-  let st = (r.Status||"").trim().toUpperCase();
-  let status = "Belum diisi";
   const baca = s => /AKTIF/.test(s)?"Aktif":/LULUS/.test(s)?"Lulus":/MUTASI/.test(s)?"Mutasi":/KELUAR|KE SMP/.test(s)?"Keluar":"";
-  status = baca(st) || baca(cat.toUpperCase()) || "Belum diisi";
+  const status = baca((r.Status||"").toUpperCase()) || baca(cat.toUpperCase()) || "Belum diisi";
   const tm = (r.TglMasukKelas||"").match(/(19|20)\d\d/);
-  const tahunMasuk = tm ? +tm[0] : null;
   const tl = cat.match(/^(19|20)\d\d$/);
-  const tahunLulus = tl ? +tl[0] : null;
   let jk = (r.JenisKelamin||"").trim().toUpperCase(); if(jk!=="L"&&jk!=="P") jk="";
   const huruf = ((r.HurufKlapper||nama[0]||"").trim()[0]||"#").toUpperCase();
   return {nis:+r.NIS||r.NIS, nisn:r.NISN||"", nama, huruf, jk, tempat:r.TempatLahir||"", tglLahir:r.TglLahir||"",
-    status, ortu:r.NamaOrtu||"", tglMasuk:r.TglMasukKelas||"", catatan:cat, tahunMasuk, tahunLulus};
+    status, ortu:r.NamaOrtu||"", tglMasuk:r.TglMasukKelas||"", catatan:cat, tahunMasuk:tm?+tm[0]:null, tahunLulus:tl?+tl[0]:null};
 }
 
-/* ---------- Mulai UI ---------- */
 function mulai(){
   const tahun = [...new Set(DATA.map(d=>d.tahunMasuk).filter(Boolean))].sort((a,b)=>b-a);
-  $("#fTahun").innerHTML = '<option value="">Semua tahun masuk</option>' + tahun.map(t=>`<option>${t}</option>`).join("");
-  const st = STATUS_URUT.filter(s=>DATA.some(d=>d.status===s));
-  $("#fStatus").innerHTML = '<option value="">Semua status</option>' + st.map(s=>`<option>${s}</option>`).join("");
+  $("#fTahun").innerHTML = '<option value="">Semua tahun</option>' + tahun.map(t=>`<option>${t}</option>`).join("");
+  $("#fStatus").innerHTML = '<option value="">Semua status</option>' + STATUS_URUT.filter(s=>DATA.some(d=>d.status===s)).map(s=>`<option>${s}</option>`).join("");
   const ada = new Set(DATA.map(d=>d.huruf));
-  $("#huruf").innerHTML = '<button data-h="" aria-pressed="true">Semua</button>' +
+  $("#huruf").innerHTML = '<button data-h="" aria-pressed="true" style="padding:0 12px">Semua</button>' +
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(h=>`<button data-h="${h}" aria-pressed="false" ${ada.has(h)?"":"disabled"}>${h}</button>`).join("");
-  $("#p-dash").hidden = false;
-  gambarRingkasan();
-  terapkan();
+  gambarRingkasan(); terapkan();
 }
-
-function hitung(arr,fn){const m={};arr.forEach(d=>{const k=fn(d);if(k!=null&&k!=="")m[k]=(m[k]||0)+1});return m}
+const hitung=(arr,fn)=>{const m={};arr.forEach(d=>{const k=fn(d);if(k!=null&&k!=="")m[k]=(m[k]||0)+1});return m};
 
 function gambarRingkasan(){
   const n = DATA.length, bySt = hitung(DATA,d=>d.status), byJK = hitung(DATA,d=>d.jk);
-  const kartu = [
-    ["Total siswa",n,"#0b4a34",""],["Aktif",bySt.Aktif||0,WARNA.Aktif,"Aktif"],["Lulus",bySt.Lulus||0,WARNA.Lulus,"Lulus"],
-    ["Mutasi",bySt.Mutasi||0,WARNA.Mutasi,"Mutasi"],["Keluar",bySt.Keluar||0,WARNA.Keluar,"Keluar"]];
-  $("#stats").innerHTML = kartu.map(([l,v,c,s])=>`<button class="stat" style="--c:${c}" data-s="${s}"><b>${v.toLocaleString("id-ID")}</b><span>${l}</span></button>`).join("");
+  const kartu = [["","Total Siswa",n,"seluruh angkatan",""],["","Aktif",bySt.Aktif||0,"masih bersekolah","Aktif"],["gold","Lulus",bySt.Lulus||0,"tercatat lulus","Lulus"],
+    ["blue","Mutasi",bySt.Mutasi||0,"pindah sekolah","Mutasi"],["dark","Keluar",bySt.Keluar||0,"tidak menamatkan","Keluar"]];
+  $("#stats").innerHTML = kartu.map(([c,l,v,s,f],i)=>`<button class="stat ${c}" style="--i:${i}" data-s="${f}"><i>${l}</i><b>${v.toLocaleString("id-ID")}</b><small>${s}</small></button>`).join("");
   $("#stats").onclick = e => { const b=e.target.closest(".stat"); if(!b) return; resetFilter(); $("#fStatus").value=b.dataset.s; pindah("data"); terapkan(); };
 
-  const tahunMap = hitung(DATA,d=>d.tahunMasuk), ty = Object.keys(tahunMap).sort();
-  const hMap = hitung(DATA,d=>d.huruf), hs = Object.entries(hMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
-  const teksWarna = getComputedStyle(document.body).color;
-  Chart.defaults.color = teksWarna; Chart.defaults.font.family = "'Plus Jakarta Sans',sans-serif";
+  const tMap = hitung(DATA,d=>d.tahunMasuk), ty = Object.keys(tMap).sort();
+  const hs = Object.entries(hitung(DATA,d=>d.huruf)).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  Chart.defaults.color = "#5d6670"; Chart.defaults.font.family = "Inter,sans-serif";
   const opsi = {responsive:true,maintainAspectRatio:false};
   const buat=(id,cfg)=>{ charts[id]&&charts[id].destroy(); charts[id]=new Chart($("#"+id),cfg); };
   const ls = STATUS_URUT.filter(s=>bySt[s]);
-  buat("cStatus",{type:"doughnut",data:{labels:ls,datasets:[{data:ls.map(s=>bySt[s]),backgroundColor:ls.map(s=>WARNA[s]),borderWidth:0}]},
-    options:{...opsi,cutout:"62%",plugins:{legend:{position:"bottom"}}}});
-  buat("cJK",{type:"doughnut",data:{labels:["Laki-laki","Perempuan","Belum diisi"],datasets:[{data:[byJK.L||0,byJK.P||0,n-(byJK.L||0)-(byJK.P||0)],backgroundColor:["#2c6f9e","#a4486b","#8a948e"],borderWidth:0}]},
-    options:{...opsi,cutout:"62%",plugins:{legend:{position:"bottom"}}}});
-  buat("cTahun",{type:"bar",data:{labels:ty,datasets:[{label:"Siswa masuk",data:ty.map(t=>tahunMap[t]),backgroundColor:"#13694a",borderRadius:5}]},
-    options:{...opsi,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:"rgba(128,128,128,.15)"}},x:{grid:{display:false}}}}});
-  buat("cHuruf",{type:"bar",data:{labels:hs.map(h=>h[0]),datasets:[{data:hs.map(h=>h[1]),backgroundColor:"#c9a227",borderRadius:5}]},
-    options:{...opsi,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:"rgba(128,128,128,.15)"}},x:{grid:{display:false}}}}});
+  buat("cStatus",{type:"doughnut",data:{labels:ls,datasets:[{data:ls.map(s=>bySt[s]),backgroundColor:ls.map(s=>WARNA[s]),borderWidth:3,borderColor:"#fff"}]},options:{...opsi,cutout:"62%",plugins:{legend:{position:"bottom"}}}});
+  buat("cJK",{type:"doughnut",data:{labels:["Laki-laki","Perempuan","Belum diisi"],datasets:[{data:[byJK.L||0,byJK.P||0,n-(byJK.L||0)-(byJK.P||0)],backgroundColor:["#198754","#c9943a","#adb5bd"],borderWidth:3,borderColor:"#fff"}]},options:{...opsi,cutout:"62%",plugins:{legend:{position:"bottom"}}}});
+  const grid={y:{beginAtZero:true,grid:{color:"rgba(0,0,0,.06)"}},x:{grid:{display:false}}};
+  buat("cTahun",{type:"bar",data:{labels:ty,datasets:[{label:"Siswa masuk",data:ty.map(t=>tMap[t]),backgroundColor:"#198754",borderRadius:6}]},options:{...opsi,plugins:{legend:{display:false}},scales:grid}});
+  buat("cHuruf",{type:"bar",data:{labels:hs.map(h=>h[0]),datasets:[{data:hs.map(h=>h[1]),backgroundColor:"#c9943a",borderRadius:6}]},options:{...opsi,plugins:{legend:{display:false}},scales:grid}});
 
   const pct = f => Math.round(DATA.filter(f).length/n*100);
   const kual = [["Jenis kelamin",pct(d=>d.jk)],["Status",pct(d=>d.status!=="Belum diisi")],["Tahun masuk",pct(d=>d.tahunMasuk)],
     ["Tempat dan tanggal lahir",pct(d=>d.tempat&&d.tglLahir)],["Nama orang tua",pct(d=>d.ortu)],["NISN",pct(d=>d.nisn)]];
-  $("#kualitas").innerHTML = kual.map(([l,p])=>`<div class="bar"><div class="label"><span>${l}</span><b>${p}%</b></div><div class="track"><div class="fill" style="width:${p}%"></div></div></div>`).join("");
+  $("#kualitas").innerHTML = kual.map(([l,p],i)=>`<div class="pbar"><div class="row"><span>${l}</span><span class="badge ${p>=70?'bg':p>=30?'bgl':'brl'}">${p}%</span></div><div class="ptrack"><div class="pfill ${p<70?'gold-bar':''}" style="width:${p}%;animation-delay:${i*80+150}ms"></div></div></div>`).join("");
 }
 
-/* ---------- Filter, urut, tampil ---------- */
 function terapkan(){
   const q = $("#q").value.trim().toLowerCase(), fs=$("#fStatus").value, fj=$("#fJK").value, ft=$("#fTahun").value;
   VIEW = DATA.filter(d =>
@@ -320,42 +412,41 @@ function terapkan(){
 function gambarDaftar(){
   const tampil = VIEW.slice(0,page*PAGE);
   $("#jumlah").textContent = `Menampilkan ${tampil.length.toLocaleString("id-ID")} dari ${VIEW.length.toLocaleString("id-ID")} siswa`;
-  $("#daftar").innerHTML = VIEW.length ? tampil.map(d=>{
-    const k = d.status==="Belum diisi"?"Belum":d.status;
-    const sub = [d.tahunMasuk?"Masuk "+d.tahunMasuk:"", d.tahunLulus?"Lulus "+d.tahunLulus:""].filter(Boolean).join(" · ") || "Data masuk belum lengkap";
-    return `<button class="siswa" data-nis="${esc(d.nis)}"><div class="avatar ${d.jk}">${esc(d.huruf)}</div>
-      <div><h3>${esc(d.nama)}</h3><small>NIS ${esc(d.nis)} · ${sub}</small><span class="lencana ${k}">${d.status}</span></div></button>`;
-  }).join("") : `<div class="kosong" style="grid-column:1/-1"><b>Tidak ada siswa yang cocok.</b><br>Coba kata kunci lain atau reset filter.</div>`;
-  $("#lagi").hidden = tampil.length>=VIEW.length;
+  $("#daftar").innerHTML = VIEW.length ? tampil.map((d,i)=>{
+    const sub = "NIS " + d.nis + (d.tahunLulus ? " · lulus " + d.tahunLulus : "");
+    return `<tr class="clickable-row" data-nis="${esc(d.nis)}" style="--d:${Math.min(i%PAGE,12)*25}ms">
+      <td class="first"><div class="nm"><div class="av ${d.jk}">${esc(d.huruf)}</div><div><b>${esc(d.nama)}</b><small>${esc(sub)}</small></div></div></td>
+      <td data-label="Jenis kelamin">${d.jk==="L"?"Laki-laki":d.jk==="P"?"Perempuan":"-"}</td>
+      <td data-label="Tahun masuk">${d.tahunMasuk||"-"}</td>
+      <td data-label="Orang tua">${esc(d.ortu)||"-"}</td>
+      <td data-label="Status"><span class="badge ${BADGE[d.status]}">${d.status}</span></td></tr>`;
+  }).join("") : `<tr><td colspan="5" class="empty-state">Tidak ada siswa yang cocok. Coba kata kunci lain atau reset filter.</td></tr>`;
+  $("#more").hidden = tampil.length>=VIEW.length;
 }
 function resetFilter(){ $("#q").value="";$("#fStatus").value="";$("#fJK").value="";$("#fTahun").value="";hurufAktif="";
   document.querySelectorAll("#huruf button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.h==="")));}
-
-["q"].forEach(id=>$("#"+id).addEventListener("input",debounce(terapkan,180)));
+const debounce=(f,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}};
+$("#q").addEventListener("input",debounce(terapkan,180));
 ["fStatus","fJK","fTahun","urut"].forEach(id=>$("#"+id).addEventListener("change",terapkan));
 $("#reset").onclick=()=>{resetFilter();terapkan()};
 $("#lagi").onclick=()=>{page++;gambarDaftar()};
 $("#huruf").onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;hurufAktif=b.dataset.h;
   document.querySelectorAll("#huruf button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));terapkan()};
-function debounce(f,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}}
 
-/* ---------- Detail ---------- */
 $("#daftar").onclick=e=>{
-  const b=e.target.closest(".siswa"); if(!b) return;
-  const d = DATA.find(x=>String(x.nis)===b.dataset.nis); if(!d) return;
-  $("#mNama").textContent = d.nama;
+  const tr=e.target.closest("tr[data-nis]"); if(!tr) return;
+  const d = DATA.find(x=>String(x.nis)===tr.dataset.nis); if(!d) return;
+  $("#mAv").textContent = d.huruf; $("#mNama").textContent = d.nama;
   $("#mSub").textContent = "NIS " + d.nis + (d.nisn ? " · NISN " + d.nisn : "");
-  const ttl = [d.tempat,d.tglLahir].filter(Boolean).join(", ");
-  const baris = [["Jenis kelamin",d.jk==="L"?"Laki-laki":d.jk==="P"?"Perempuan":""],["Tempat, tgl lahir",ttl],["Status",d.status],
-    ["Orang tua / wali",d.ortu],["Masuk kelas",d.tglMasuk],["Tahun lulus",d.tahunLulus||""],["Huruf klapper",d.huruf],
-    ["Catatan",d.tahunLulus?"":d.catatan]];
-  $("#mIsi").innerHTML = baris.map(([k,v])=>`<dt>${k}</dt><dd>${v?esc(v):'<span style="color:var(--abu);font-weight:400">Belum tercatat</span>'}</dd>`).join("");
+  const baris = [["Jenis kelamin",d.jk==="L"?"Laki-laki":d.jk==="P"?"Perempuan":""],["Tempat, tgl lahir",[d.tempat,d.tglLahir].filter(Boolean).join(", ")],
+    ["Status",d.status==="Belum diisi"?"":d.status],["Orang tua / wali",d.ortu],["Masuk kelas",d.tglMasuk],["Tahun lulus",d.tahunLulus||""],
+    ["Huruf klapper",d.huruf],["Catatan",d.tahunLulus?"":d.catatan]];
+  $("#mIsi").innerHTML = baris.map(([k,v])=>`<dt>${k}</dt><dd>${v?esc(v):'<span class="none">Belum tercatat</span>'}</dd>`).join("");
   $("#dlg").showModal();
 };
 $("#tutup").onclick=()=>$("#dlg").close();
 $("#dlg").addEventListener("click",e=>{if(e.target.id==="dlg")e.target.close()});
 
-/* ---------- CSV ---------- */
 $("#unduh").onclick=()=>{
   const h=["NIS","NISN","Nama","Huruf","JK","Tempat Lahir","Tgl Lahir","Status","Orang Tua","Tgl Masuk","Tahun Lulus","Catatan"];
   const c=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
@@ -364,11 +455,10 @@ $("#unduh").onclick=()=>{
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="klapper-siswa.csv";a.click();URL.revokeObjectURL(a.href);
 };
 
-/* ---------- Tab ---------- */
 function pindah(t){
-  $("#t-dash").setAttribute("aria-selected",String(t==="dash"));$("#t-data").setAttribute("aria-selected",String(t==="data"));
-  if(!DATA.length) return;
-  $("#p-dash").hidden = t!=="dash"; $("#p-data").hidden = t!=="data";
+  $("#t-dash").classList.toggle("active",t==="dash"); $("#t-data").classList.toggle("active",t==="data");
+  $("#p-dash").classList.toggle("active",t==="dash"); $("#p-data").classList.toggle("active",t==="data");
+  window.scrollTo({top:0});
 }
 $("#t-dash").onclick=()=>pindah("dash"); $("#t-data").onclick=()=>pindah("data");
 
